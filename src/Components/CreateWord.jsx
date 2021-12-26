@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
 
 export default function CreateWord() {
+  const [isLoading, setIsLoading] = useState(false);
   const engRef = useRef(null);
   const korRef = useRef(null);
   const dayRef = useRef(null);
@@ -11,30 +12,34 @@ export default function CreateWord() {
 
   const onSubmit = e => {
     e.preventDefault();
-    const eng = engRef.current.value;
-    const kor = korRef.current.value;
-    const day = dayRef.current.value;
-    console.log(eng);
-    console.log(kor);
-    console.log(day);
+    if (!isLoading) {
+      setIsLoading(true);
+      const eng = engRef.current.value;
+      const kor = korRef.current.value;
+      const day = dayRef.current.value;
+      console.log(eng);
+      console.log(kor);
+      console.log(day);
 
-    fetch(`http://localhost:3001/words/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        day,
-        eng,
-        kor,
-        isDone: false,
-      }),
-    }).then(res => {
-      if (res.ok) {
-        alert("설정이 완료 되었습니다.");
-        navigate(`/day/${dayRef.current.value}`);
-      }
-    });
+      fetch(`http://localhost:3001/words/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          day,
+          eng,
+          kor,
+          isDone: false,
+        }),
+      }).then(res => {
+        if (res.ok) {
+          alert("설정이 완료 되었습니다.");
+          navigate(`/day/${dayRef.current.value}`);
+          setIsLoading(false);
+        }
+      });
+    }
   };
 
   return (
@@ -57,7 +62,9 @@ export default function CreateWord() {
           ))}
         </select>
       </div>
-      <button>저장</button>
+      <button style={{ opacity: isLoading ? 0.3 : 1 }}>
+        {isLoading ? "Saving..." : "저장"}
+      </button>
     </form>
   );
 }
