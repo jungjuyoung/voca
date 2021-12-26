@@ -37,7 +37,7 @@
       "day": 3,
       "eng": "school",
       "kor": "학교",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": 6,
@@ -47,7 +47,7 @@
       "isDone": false
     },
     {
-      "day": "3",
+      "day": 4,
       "eng": "window",
       "kor": "창문",
       "isDone": false,
@@ -68,14 +68,14 @@
       "id": 9
     },
     {
-      "day": "4",
+      "day": 4,
       "eng": "monkey",
       "kor": "원숭이",
       "isDone": false,
       "id": 10
     },
     {
-      "day": "4",
+      "day": 4,
       "eng": "apple",
       "kor": "사과",
       "isDone": false,

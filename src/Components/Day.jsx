@@ -1,18 +1,23 @@
 import dummy from "../db/data.json";
+import { useParams } from "react-router-dom";
+import Word from "./Word";
 
 export default function Day() {
-  const wordList = dummy.words.filter(word => word.day === 3);
-
+  const { day } = useParams();
+  const wordList = dummy.words.filter(word => word.day === Number(day));
+  console.log("====================================");
+  console.log(wordList);
+  console.log("====================================");
   return (
-    <table>
-      <tbody>
-        {wordList.map(word => (
-          <tr key={word.id}>
-            <td>{word.eng}</td>
-            <td>{word.kor}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <>
+      <h2>Day {day}</h2>
+      <table>
+        <tbody>
+          {wordList.map(word => (
+            <Word word={word} key={word.id} />
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }
