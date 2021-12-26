@@ -5,9 +5,6 @@ import Word from "./Word";
 export default function Day() {
   const { day } = useParams();
   const wordList = dummy.words.filter(word => word.day === Number(day));
-  console.log("====================================");
-  console.log(wordList);
-  console.log("====================================");
   return (
     <>
       <h2>Day {day}</h2>
