@@ -1,18 +1,19 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
+import Idays from "./DayList";
 
 export default function CreateWord() {
   const [isLoading, setIsLoading] = useState(false);
-  const engRef = useRef(null);
-  const korRef = useRef(null);
-  const dayRef = useRef(null);
-  const days = useFetch("http://localhost:3001/days");
+  const engRef = useRef<HTMLInputElement>(null);
+  const korRef = useRef<HTMLInputElement>(null);
+  const dayRef = useRef<HTMLSelectElement>(null);
+  const days: Idays[] = useFetch("http://localhost:3001/days");
   const navigate = useNavigate();
 
-  const onSubmit = e => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isLoading) {
+    if (!isLoading && dayRef.current && engRef.current && korRef.current) {
       setIsLoading(true);
       const eng = engRef.current.value;
       const kor = korRef.current.value;
@@ -35,7 +36,7 @@ export default function CreateWord() {
       }).then(res => {
         if (res.ok) {
           alert("설정이 완료 되었습니다.");
-          navigate(`/day/${dayRef.current.value}`);
+          navigate(`/day/${day}`);
           setIsLoading(false);
         }
       });

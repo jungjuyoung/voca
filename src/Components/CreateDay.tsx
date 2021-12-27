@@ -1,9 +1,10 @@
 import React from "react";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { Idays } from "./DayList";
 
 export default function CreateDay() {
-  const days = useFetch(`http://localhost:3001/days`);
+  const days: Idays[] = useFetch("http://localhost:3001/days");
   const navigate = useNavigate();
   const addDay = () => {
     fetch(`http://localhost:3001/days/`, {
